@@ -25,7 +25,7 @@ $ python3 manage.py runserver
 ```
 
 ## Contributors
-- <a href="https://github.com/<Contributor>">Aman Ali</a>
+- <a href="https://github.com/<a-ma-n>">Aman Ali</a>
 - <a href="https://github.com/<Contributor>">Bhavya Nagpal</a>
 
 ## License
