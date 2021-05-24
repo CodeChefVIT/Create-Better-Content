@@ -1,0 +1,25 @@
+h3{
+  font-family: Raleway;
+  padding-top: 6rem;
+  font-size: 3rem;
+  padding-bottom: 3rem;
+}
+.block1{
+  padding-left: 3rem;
+}
+.block1 p{
+  text-align: center;
+  font-size: 20px;
+}
+.block2{
+  padding-top:3rem;
+  padding-left:3rem;
+}
+.block2 h5{
+  padding-top:2rem;
+}
+.block3{
+  text-align:center;
+  padding-left:30%;
+  padding-bottom:50px;
+}

@@ -35,14 +35,21 @@ def calc(vId):
             d[comment]=result
         pc=0
         nc=0
+
         for i in d:
             if d[i][0] ==1:
                 pc=pc+1
             else:
                 nc=nc+1
-        r_c=((pc)/(pc+nc))*10
-    except TypeError:
+        # print(pc,nc)
+    except:
         pass
+    try:
+        r_c=((pc)/(pc+nc))*10
+    except :
+        print('\n','this video has no comments','\n')
+        return
+
     response2 = youtube.videos().list(part='statistics',id=vId).execute()
     likes=(int)(response2['items'][0]['statistics']['likeCount'])
     dislikes=(int)(response2['items'][0]['statistics']['dislikeCount'])
@@ -51,7 +58,6 @@ def calc(vId):
     # print(response[''])
 
     r_l=(likes/(likes+dislikes))*10
-
     sum=(r_l+r_c)/2
 
     f = youtube.videos().list(part='snippet',id=vId).execute()

@@ -35,7 +35,7 @@ def searcher(search):
     for i in response['items']:
         l.append(i['id']['videoId'])
 
-    print(l)
+    # print(l)
 
     return l
 
@@ -44,10 +44,12 @@ def searcher(search):
 def keyword_s(search):
     a=[]
     for i in searcher(search):
-        a.append(calc(i))
+        if calc(i)!=None:
+            a.append(calc(i))
     # print(a)
     a=sorted(a,key=lambda i:i['rating'],reverse=True)
     print(a)
+
     return a
 
 
