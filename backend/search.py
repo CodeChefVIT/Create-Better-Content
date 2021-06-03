@@ -1,11 +1,15 @@
-
+import os
 import warnings
 warnings.filterwarnings("ignore")
 import urllib.parse
 from senti import *
+from dotenv import dotenv_values
+
 
 # build the YT api using the api key and use the youtube data -> v3 api
-api_key = 'AIzaSyB99vDvUQUO8qWZ7QDb2l5UvO1QEzDAErQ'
+# print(os.environ)
+config=dotenv_values('.env')
+api_key = config['API_KEY']
 youtube = build('youtube', 'v3', developerKey=api_key)
 
 
@@ -46,4 +50,3 @@ def link(url):
     vId = query["v"][0]
     print(calc(vId))
     return (calc(vId))
-
