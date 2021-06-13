@@ -1,17 +1,18 @@
 <p align="center"><a href="https://www.codechefvit.com" target="_blank"><img src="https://s3.amazonaws.com/codechef_shared/sites/all/themes/abessive/logo-3.png" title="CodeChef-VIT" alt="Codechef-VIT"></a>
 </p>
 
-# Project Title
+# Create Better Content
 
 > <Subtitle>
-> Include project description here.
+> Our website provides the user as well as the content creators great insight about the videos they put up on Youtube. 
 
 ---
 [![DOCS](https://img.shields.io/badge/Documentation-see%20docs-green?style=flat-square&logo=appveyor)](INSERT_LINK_FOR_DOCS_HERE) 
   [![UI ](https://img.shields.io/badge/User%20Interface-Link%20to%20UI-orange?style=flat-square&logo=appveyor)](INSERT_UI_LINK_HERE)
 
 ## Features
-- Insert list of features here
+- Keyword search feature which acts as the search bar and helps users search.
+- url search feature allows users to enter a link and the analysis of the video will be displayed on the frontend.
 
 ## Screenshots
 <img src="https://github.com/akshatvg/common-entry-test/raw/master/static/img/header.png" alt="Project Screenshots">
