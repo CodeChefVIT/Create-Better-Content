@@ -23,6 +23,8 @@ $ git clone https://github.com/CodeChefVIT/<Project>
 $ cd <Project>
 $ pip3 install -r requirements.txt
 $ python3 manage.py runserver
+
+-Unzip cv.pkl placed in the models folder.
 ```
 
 ## Contributors
