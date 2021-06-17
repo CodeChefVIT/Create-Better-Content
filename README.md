@@ -24,6 +24,8 @@ $ cd <Project>
 $ pip3 install -r requirements.txt
 $ python3 manage.py runserver
 ```
+-Unzip cv.pkl.zip placed in the models folder.
+
 
 ## Contributors
 - <a href="https://github.com/a-ma-n">Aman Ali</a>

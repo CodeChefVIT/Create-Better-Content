@@ -1,6 +1,0 @@
-google-api-python-client
-python-dotenv
-flask
-numpy
-pandas
-scikit-learn
