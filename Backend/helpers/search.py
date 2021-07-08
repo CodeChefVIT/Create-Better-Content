@@ -1,4 +1,3 @@
-import warnings
 from helpers.senti import *
 import urllib.parse
 warnings.filterwarnings("ignore")
@@ -6,6 +5,7 @@ warnings.filterwarnings("ignore")
 # build the YT api using the api key and use the youtube data -> v3 api
 config=dotenv_values('helpers/.env')
 api_key = config['API_KEY']
+
 youtube = build('youtube', 'v3', developerKey=api_key)
 
 
@@ -15,6 +15,7 @@ def searcher(search):
     * function returns a list of the comments of 15 videos in the form of a list
     """
     response = youtube.search().list(part='snippet', q=search, maxResults=15, type='video').execute()
+    
     l = []
     for i in response['items']:
         l.append(i['id']['videoId'])
