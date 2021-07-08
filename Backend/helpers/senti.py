@@ -6,6 +6,7 @@ from dotenv import dotenv_values
 warnings.filterwarnings("ignore")
 
 config=dotenv_values("helpers/.env")
+print(config)
 api_key = config['API_KEY']
 youtube = build('youtube', 'v3', developerKey=api_key)
 NON_ALPHANUM = re.compile(r'[\W]')
@@ -44,51 +45,58 @@ def calc(vId):
     -number of dislikes
     -link of the video
     """
-    response = youtube.commentThreads().list(part='snippet', videoId=vId, textFormat='plainText').execute()
-    # opening the logistic regression and count vectorizer models
-    lr = pickle.load(open('./models/model.pkl', 'rb'))
-    cv = pickle.load(open('./models/cv.pkl', 'rb'))
-    l = list()
-    d = dict()
 
-    for i in response['items']:
-        comment = i['snippet']['topLevelComment']['snippet']['textDisplay']
-        l.append(comment)
-        comment = normalize_texts(comment)
-        normalized = cv.transform([comment])
-        result = lr.predict(normalized)
-        d[comment] = result
-    pc = 0
-    nc = 0
-
-    for i in d:
-        if d[i][0] == 1:
-            pc = pc + 1
-        else:
-            nc = nc + 1
-
-    # try if there are any comments for the video, except return
-    try:
-        r_c = (pc / (pc + nc)) * 10
-    except:
-        print('\n', 'this video has no comments', '\n')
-        return
-
-    # Get like and dislike count for the video
-    response2 = youtube.videos().list(part='statistics', id=vId).execute()
-    likes = int(response2['items'][0]['statistics']['likeCount'])
-    dislikes = int(response2['items'][0]['statistics']['dislikeCount'])
-
-    # Get view count of the video
-    views = int(response2['items'][0]['statistics']['viewCount'])
-
-    r_l = (likes / (likes + dislikes)) * 10
-    sum = (r_l + r_c) / 2
     f = youtube.videos().list(part='snippet', id=vId).execute()
-
     # get the title of the video
     title = f['items'][0]['snippet']['title']
-    l2 = {'title': title, 'rating': sum, 'views': views, 'positive_comments': pc, 'negative_comments': nc,
-          'likes': likes, 'dislikes': dislikes, 'link': ("https://www.youtube.com/watch?v=" + vId)}
+    try:
+        response = youtube.commentThreads().list(part='snippet', videoId=vId, textFormat='plainText').execute()
+        # opening the logistic regression and count vectorizer models
+        lr = pickle.load(open('models/model.pkl', 'rb'))
+        cv = pickle.load(open('models/cv.pkl', 'rb'))
+        l = list()
+        d = dict()
 
-    return l2
+        for i in response['items']:
+            comment = i['snippet']['topLevelComment']['snippet']['textDisplay']
+            l.append(comment)
+            comment = normalize_texts(comment)
+            normalized = cv.transform([comment])
+            result = lr.predict(normalized)
+            d[comment] = result
+        pc = 0
+        nc = 0
+
+        for i in d:
+            if d[i][0] == 1:
+                pc = pc + 1
+            else:
+                nc = nc + 1
+
+        # try if there are any comments for the video, except return
+        try:
+            r_c = (pc / (pc + nc)) * 10
+        except:
+            print('\n', 'this video has no comments','rc=',r_c,'pc=',pc,"nc=",nc, '\n')
+            return
+
+        # Get like and dislike count for the video
+        response2 = youtube.videos().list(part='statistics', id=vId).execute()
+        likes = int(response2['items'][0]['statistics']['likeCount'])
+        dislikes = int(response2['items'][0]['statistics']['dislikeCount'])
+
+        # Get view count of the video
+        views = int(response2['items'][0]['statistics']['viewCount'])
+
+        r_l = (likes / (likes + dislikes)) * 10
+        sum = (r_l + r_c) / 2
+
+        l2 = {'title': title, 'rating': sum, 'views': views, 'positive_comments': pc, 'negative_comments': nc,
+              'likes': likes, 'dislikes': dislikes, 'link': ("https://www.youtube.com/watch?v=" + vId)}
+
+        return l2
+
+    except:
+        print(title)
+        print("comments are off")
+        return
